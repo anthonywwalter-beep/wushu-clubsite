@@ -1,3 +1,10 @@
+/* Reset body and html */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
 /* Banner container */
 .navbar {
     display: flex;
