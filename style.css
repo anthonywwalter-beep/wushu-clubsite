@@ -41,3 +41,11 @@
 .nav-links a:hover {
     color: #f0c040; /* highlight color */
 }
+
+.content {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 40px;
+    font-size: 1.3rem;
+    color: #333;
+}
