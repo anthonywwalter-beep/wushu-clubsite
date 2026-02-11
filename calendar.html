@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tester File</title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="calender_style.css">
 </head>
 
@@ -27,9 +27,66 @@
         <p>Check out our calendar for upcoming events and practices!</p>
     </div>
     <div class="calendar-container">
-        <iframe src="https://calendar.google.com/calendar/embed?src=uo.wushu%40gmail.com&ctz=America%2FEugene" 
-        style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <div class="calendar-layout">
+            <section class="calendar-card">
+                <div class="calendar-header">
+                    <button class="nav-button" id="prev-month" aria-label="Previous month">&#8249;</button>
+                    <div class="month-label" id="month-label"></div>
+                    <button class="nav-button" id="next-month" aria-label="Next month">&#8250;</button>
+                </div>
+                <div class="weekday-row">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </section>
+            <aside class="event-panel">
+                <div class="event-panel-header">
+                    <h2 id="selected-date-label">Selected date</h2>
+                    <p class="event-hint">Add practices, meetings, and events.</p>
+                </div>
+                <ul class="event-list" id="event-list"></ul>
+                <form class="event-form" id="event-form">
+                    <label>
+                        Title
+                        <input type="text" id="event-title" placeholder="Wushu practice" required>
+                    </label>
+                    <label>
+                        Date
+                        <input type="date" id="event-date" required>
+                    </label>
+                    <div class="form-row">
+                        <label>
+                            Time
+                            <input type="time" id="event-time">
+                        </label>
+                        <label>
+                            Duration (mins)
+                            <input type="number" id="event-duration" min="15" step="15" placeholder="90">
+                        </label>
+                    </div>
+                    <label>
+                        Recurrence
+                        <select id="event-recurrence">
+                            <option value="none">Does not repeat</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </label>
+                    <label>
+                        Repeat until
+                        <input type="date" id="event-until">
+                    </label>
+                    <button type="submit" class="primary-button">Add event</button>
+                </form>
+            </aside>
+        </div>
     </div>
     
-
+    <script src="calendar.js"></script>
 </body>
