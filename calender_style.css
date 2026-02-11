@@ -56,3 +56,9 @@ body {
     font-size: 1.3rem;
     color: #333;
 }
+
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
