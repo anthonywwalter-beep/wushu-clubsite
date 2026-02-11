@@ -1,0 +1,58 @@
+/* Reset body and html */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+/* Banner container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* Left side: logo + title */
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.site-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Right side: nav links */
+.nav-links a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #f0c040; /* highlight color */
+}
+
+.content {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 40px;
+    font-size: 1.3rem;
+    color: #333;
+}
