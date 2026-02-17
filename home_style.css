@@ -50,6 +50,10 @@ body {
     letter-spacing: 2px;
 }
 
+.intro-logo {
+    display: flex;
+    justify-content: left;}
+
 /* Right side: nav links */
 .nav-links a {
     margin-left: 30px;
