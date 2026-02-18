@@ -1,14 +1,34 @@
+// Admin password (change this for production!)
+const ADMIN_PASSWORD = "wushu2026";
+
+// Authentication
+const loginScreen = document.getElementById("login-screen");
+const adminContent = document.getElementById("admin-content");
+const loginForm = document.getElementById("login-form");
+const passwordInput = document.getElementById("password-input");
+const loginError = document.getElementById("login-error");
+const logoutButton = document.getElementById("logout-button");
+
+// Calendar elements
 const calendarGrid = document.getElementById("calendar-grid");
 const monthLabel = document.getElementById("month-label");
 const prevMonthButton = document.getElementById("prev-month");
 const nextMonthButton = document.getElementById("next-month");
 const selectedDateLabel = document.getElementById("selected-date-label");
 const eventList = document.getElementById("event-list");
+const eventForm = document.getElementById("event-form");
+const eventTitleInput = document.getElementById("event-title");
+const eventDateInput = document.getElementById("event-date");
+const eventTimeInput = document.getElementById("event-time");
+const eventDurationInput = document.getElementById("event-duration");
+const eventRecurrenceInput = document.getElementById("event-recurrence");
+const eventUntilInput = document.getElementById("event-until");
 
 const state = {
     currentDate: new Date(),
     selectedDate: new Date(),
-    events: loadEvents()
+    events: loadEvents(),
+    authenticated: checkAuth()
 };
 
 const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" });
@@ -25,6 +45,18 @@ function formatDateKey(date) {
 function parseDateKey(key) {
     const [year, month, day] = key.split("-").map(Number);
     return new Date(year, month - 1, day);
+}
+
+function checkAuth() {
+    return sessionStorage.getItem("wushuAdminAuth") === "true";
+}
+
+function setAuth(value) {
+    if (value) {
+        sessionStorage.setItem("wushuAdminAuth", "true");
+    } else {
+        sessionStorage.removeItem("wushuAdminAuth");
+    }
 }
 
 function loadEvents() {
@@ -115,6 +147,7 @@ function renderCalendar() {
 
 function renderSelectedDate() {
     selectedDateLabel.textContent = dayFormatter.format(state.selectedDate);
+    eventDateInput.value = formatDateKey(state.selectedDate);
 }
 
 function renderEventList() {
@@ -124,7 +157,7 @@ function renderEventList() {
     if (items.length === 0) {
         const empty = document.createElement("li");
         empty.className = "event-empty";
-        empty.textContent = "No events scheduled.";
+        empty.textContent = "No events yet.";
         eventList.appendChild(empty);
         return;
     }
@@ -149,7 +182,14 @@ function renderEventList() {
         info.appendChild(title);
         info.appendChild(meta);
 
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "remove-button";
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", () => removeEvent(eventItem.id));
+
         listItem.appendChild(info);
+        listItem.appendChild(removeButton);
         eventList.appendChild(listItem);
     });
 }
@@ -158,6 +198,17 @@ function renderAll() {
     renderCalendar();
     renderSelectedDate();
     renderEventList();
+}
+
+function showLogin() {
+    loginScreen.style.display = "flex";
+    adminContent.style.display = "none";
+}
+
+function showAdmin() {
+    loginScreen.style.display = "none";
+    adminContent.style.display = "block";
+    renderAll();
 }
 
 function shiftMonth(direction) {
@@ -172,6 +223,41 @@ function selectDate(dateKey) {
     renderAll();
 }
 
+function addEvent(eventItem) {
+    state.events.push(eventItem);
+    saveEvents();
+    renderAll();
+}
+
+function removeEvent(id) {
+    state.events = state.events.filter((eventItem) => eventItem.id !== id);
+    saveEvents();
+    renderAll();
+}
+
+// Event listeners
+loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const password = passwordInput.value;
+    
+    if (password === ADMIN_PASSWORD) {
+        state.authenticated = true;
+        setAuth(true);
+        showAdmin();
+        loginError.textContent = "";
+        passwordInput.value = "";
+    } else {
+        loginError.textContent = "Incorrect password. Please try again.";
+        passwordInput.value = "";
+    }
+});
+
+logoutButton.addEventListener("click", () => {
+    state.authenticated = false;
+    setAuth(false);
+    showLogin();
+});
+
 calendarGrid.addEventListener("click", (event) => {
     const target = event.target.closest(".calendar-cell");
     if (!target || target.classList.contains("placeholder")) {
@@ -183,4 +269,35 @@ calendarGrid.addEventListener("click", (event) => {
 prevMonthButton.addEventListener("click", () => shiftMonth(-1));
 nextMonthButton.addEventListener("click", () => shiftMonth(1));
 
-renderAll();
+eventForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const title = eventTitleInput.value.trim();
+    const date = eventDateInput.value;
+    if (!title || !date) {
+        return;
+    }
+
+    const newEvent = {
+        id: `event-${Date.now()}`,
+        title,
+        date,
+        time: eventTimeInput.value,
+        duration: eventDurationInput.value,
+        recurrence: eventRecurrenceInput.value,
+        until: eventUntilInput.value
+    };
+
+    addEvent(newEvent);
+    eventTitleInput.value = "";
+    eventTimeInput.value = "";
+    eventDurationInput.value = "";
+    eventRecurrenceInput.value = "none";
+    eventUntilInput.value = "";
+});
+
+// Initialize
+if (state.authenticated) {
+    showAdmin();
+} else {
+    showLogin();
+}

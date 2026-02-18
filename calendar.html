@@ -48,42 +48,9 @@
             <aside class="event-panel">
                 <div class="event-panel-header">
                     <h2 id="selected-date-label">Selected date</h2>
-                    <p class="event-hint">Add practices, meetings, and events.</p>
+                    <p class="event-hint">Upcoming practices, meetings, and events.</p>
                 </div>
                 <ul class="event-list" id="event-list"></ul>
-                <form class="event-form" id="event-form">
-                    <label>
-                        Title
-                        <input type="text" id="event-title" placeholder="Wushu practice" required>
-                    </label>
-                    <label>
-                        Date
-                        <input type="date" id="event-date" required>
-                    </label>
-                    <div class="form-row">
-                        <label>
-                            Time
-                            <input type="time" id="event-time">
-                        </label>
-                        <label>
-                            Duration (mins)
-                            <input type="number" id="event-duration" min="15" step="15" placeholder="90">
-                        </label>
-                    </div>
-                    <label>
-                        Recurrence
-                        <select id="event-recurrence">
-                            <option value="none">Does not repeat</option>
-                            <option value="weekly">Weekly</option>
-                            <option value="monthly">Monthly</option>
-                        </select>
-                    </label>
-                    <label>
-                        Repeat until
-                        <input type="date" id="event-until">
-                    </label>
-                    <button type="submit" class="primary-button">Add event</button>
-                </form>
             </aside>
         </div>
     </div>
