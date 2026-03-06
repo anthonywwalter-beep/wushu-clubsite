@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tester File</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="calender_style.css">
 </head>
 
 <body>  
@@ -26,6 +26,34 @@
         <h1>Our Schedule</h1>
         <p>Check out our calendar for upcoming events and practices!</p>
     </div>
+    <div class="calendar-container">
+        <div class="calendar-layout">
+            <section class="calendar-card">
+                <div class="calendar-header">
+                    <button class="nav-button" id="prev-month" aria-label="Previous month">&#8249;</button>
+                    <div class="month-label" id="month-label"></div>
+                    <button class="nav-button" id="next-month" aria-label="Next month">&#8250;</button>
+                </div>
+                <div class="weekday-row">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </section>
+            <aside class="event-panel">
+                <div class="event-panel-header">
+                    <h2 id="selected-date-label">Selected date</h2>
+                    <p class="event-hint">Upcoming practices, meetings, and events.</p>
+                </div>
+                <ul class="event-list" id="event-list"></ul>
+            </aside>
+        </div>
+    </div>
     
-
+    <script src="calendar.js"></script>
 </body>
