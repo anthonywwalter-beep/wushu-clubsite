@@ -95,7 +95,11 @@ function renderCalendar() {
         button.type = "button";
         button.className = "calendar-cell";
         button.dataset.date = dateKey;
-        button.innerHTML = `<span>${day}</span>`;
+        
+        const dayEvents = eventsForDate(date);
+        const hasSpecialEvent = dayEvents.some(e => e.type === "special");
+        
+        button.innerHTML = `<span class="day-number">${day}</span>${hasSpecialEvent ? '<span class="cell-star">⭐</span>' : ''}`;
 
         if (formatDateKey(state.selectedDate) === dateKey) {
             button.classList.add("selected");
@@ -105,7 +109,7 @@ function renderCalendar() {
             button.classList.add("today");
         }
 
-        if (eventsForDate(date).length > 0) {
+        if (dayEvents.length > 0 && !hasSpecialEvent) {
             button.classList.add("has-events");
         }
 
@@ -133,6 +137,10 @@ function renderEventList() {
         const listItem = document.createElement("li");
         listItem.className = "event-item";
 
+        const icon = document.createElement("span");
+        icon.className = eventItem.type === "special" ? "event-icon special-icon" : "event-icon routine-icon";
+        icon.textContent = eventItem.type === "special" ? "⭐" : "📅";
+
         const info = document.createElement("div");
         info.className = "event-info";
 
@@ -149,6 +157,7 @@ function renderEventList() {
         info.appendChild(title);
         info.appendChild(meta);
 
+        listItem.appendChild(icon);
         listItem.appendChild(info);
         eventList.appendChild(listItem);
     });

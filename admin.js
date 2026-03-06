@@ -19,6 +19,7 @@ const eventList = document.getElementById("event-list");
 const eventForm = document.getElementById("event-form");
 const eventTitleInput = document.getElementById("event-title");
 const eventDateInput = document.getElementById("event-date");
+const eventTypeInput = document.getElementById("event-type");
 const eventTimeInput = document.getElementById("event-time");
 const eventDurationInput = document.getElementById("event-duration");
 const eventRecurrenceInput = document.getElementById("event-recurrence");
@@ -127,7 +128,11 @@ function renderCalendar() {
         button.type = "button";
         button.className = "calendar-cell";
         button.dataset.date = dateKey;
-        button.innerHTML = `<span>${day}</span>`;
+        
+        const dayEvents = eventsForDate(date);
+        const hasSpecialEvent = dayEvents.some(e => e.type === "special");
+        
+        button.innerHTML = `<span class="day-number">${day}</span>${hasSpecialEvent ? '<span class="cell-star">⭐</span>' : ''}`;
 
         if (formatDateKey(state.selectedDate) === dateKey) {
             button.classList.add("selected");
@@ -137,7 +142,7 @@ function renderCalendar() {
             button.classList.add("today");
         }
 
-        if (eventsForDate(date).length > 0) {
+        if (dayEvents.length > 0 && !hasSpecialEvent) {
             button.classList.add("has-events");
         }
 
@@ -166,6 +171,10 @@ function renderEventList() {
         const listItem = document.createElement("li");
         listItem.className = "event-item";
 
+        const icon = document.createElement("span");
+        icon.className = eventItem.type === "special" ? "event-icon special-icon" : "event-icon routine-icon";
+        icon.textContent = eventItem.type === "special" ? "⭐" : "📅";
+
         const info = document.createElement("div");
         info.className = "event-info";
 
@@ -182,13 +191,15 @@ function renderEventList() {
         info.appendChild(title);
         info.appendChild(meta);
 
+        listItem.appendChild(icon);
+        listItem.appendChild(info);
+
         const removeButton = document.createElement("button");
         removeButton.type = "button";
         removeButton.className = "remove-button";
         removeButton.textContent = "Remove";
         removeButton.addEventListener("click", () => removeEvent(eventItem.id));
 
-        listItem.appendChild(info);
         listItem.appendChild(removeButton);
         eventList.appendChild(listItem);
     });
@@ -281,6 +292,7 @@ eventForm.addEventListener("submit", (event) => {
         id: `event-${Date.now()}`,
         title,
         date,
+        type: eventTypeInput.value || "routine",
         time: eventTimeInput.value,
         duration: eventDurationInput.value,
         recurrence: eventRecurrenceInput.value,
@@ -289,6 +301,7 @@ eventForm.addEventListener("submit", (event) => {
 
     addEvent(newEvent);
     eventTitleInput.value = "";
+    eventTypeInput.value = "routine";
     eventTimeInput.value = "";
     eventDurationInput.value = "";
     eventRecurrenceInput.value = "none";
