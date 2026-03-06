@@ -129,8 +129,233 @@ h1, h2, h3 {
     opacity: 0.95;
 }
 
+    /* Styling for second information section */
+    .info-slide-2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 40px;
+        background-color: #0a0a0a;
+        gap: 60px;
+        color: #ffffff;
+    }
+    .info-left-2 {
+        order: 2;
+        display: flex;
+        align-items: center;
+    }
+    .info-left-2 img {
+        width: 700px;
+        height: auto;
+        border-radius: 8px;
+        opacity: 0;
+        animation: fadeIn 1.2s ease forwards;
+        transition: transform 0.3s ease;
+    }
+    .info-left-2 img:hover {
+        transform: scale(1.03);
+    }
+    .info-right-2 {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 50%;
+        text-align: center;
+        gap: 10px;
+    }
+    .info-right-2 p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .info-right-2 h2 {
+        display: inline-block;
+        font-size: 2rem;
+        margin: 10px 0 12px 0;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .info-right-2 h2::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        margin: 8px auto 0;
+        background-color: #f0c040;
+        opacity: 0.95;
+    }
 
+    /* Events Section Styling */
+    .events-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 600px;
+        padding: 60px 40px;
+        background: linear-gradient(135deg, #181818 60%, #f0c040 100%);
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .events-content {
+        width: 100%;
+        max-width: 900px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+    .events-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+        color: #fff;
+        position: relative;
+    }
+    .events-content h2::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        margin: 10px auto 0;
+        background-color: #f0c040;
+        opacity: 0.95;
+        border-radius: 2px;
+    }
+    .events-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+    }
+    .event-card {
+        background: rgba(20,20,20,0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        padding: 32px 24px;
+        min-width: 260px;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 2px solid #f0c04033;
+    }
+    .event-card:hover {
+        transform: translateY(-8px) scale(1.04);
+        box-shadow: 0 8px 32px rgba(240,192,64,0.18);
+        border-color: #f0c040;
+    }
+    .event-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #f0c040;
+    }
+    .event-date {
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+        color: #fff;
+        font-weight: 500;
+    }
+    .event-desc {
+        font-size: 1rem;
+        color: #eaeaea;
+        margin-bottom: 12px;
+    }
+    .event-location {
+        font-size: 0.95rem;
+        color: #f0c040;
+        font-style: italic;
+    }
 
+        /* Footer Styling */
+        .footer {
+            background: #181818;
+            color: #fff;
+            padding: 48px 0 24px 0;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+            position: relative;
+            z-index: 2;
+        }
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        .footer-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+        }
+        .footer-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #f0c040;
+            margin-bottom: 8px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 8px;
+        }
+        .footer-links a {
+            color: #f0c040;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .footer-social {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 8px;
+        }
+        .footer-social a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 72px;
+            height: 72px;
+            background: #f0c040;
+            border-radius: 50%;
+            color: #181818;
+            margin: 0 8px;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(240,192,64,0.12);
+        }
+        .footer-social a:hover {
+            background: #fff;
+            color: #f0c040;
+            transform: scale(1.15);
+        }
+        .footer-social img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
+        }
+        .footer-contact {
+            font-size: 1rem;
+            color: #eaeaea;
+            margin-bottom: 8px;
+        }
+        .footer-copyright {
+            font-size: 0.95rem;
+            color: #bdbdbd;
+            margin-top: 12px;
+        }
 /* Animation Gimmicks */
 @keyframes fadeIn {
     to {
