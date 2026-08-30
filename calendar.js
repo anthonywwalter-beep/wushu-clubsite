@@ -1,195 +1,78 @@
-const calendarGrid = document.getElementById("calendar-grid");
-const monthLabel = document.getElementById("month-label");
-const prevMonthButton = document.getElementById("prev-month");
-const nextMonthButton = document.getElementById("next-month");
-const selectedDateLabel = document.getElementById("selected-date-label");
-const eventList = document.getElementById("event-list");
+const practiceGrid = document.getElementById("practice-grid");
 
-const state = {
-    currentDate: new Date(),
-    selectedDate: new Date(),
-    events: loadEvents()
-};
+const WEEKDAY_ORDER = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" });
-const dayFormatter = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+// Used only the very first time the site loads on a browser with no saved schedule yet.
+const DEFAULT_PRACTICE_TIMES = [
+    { id: "default-1", day: "Monday", start: "18:00", end: "20:00" },
+    { id: "default-2", day: "Wednesday", start: "18:00", end: "20:00" },
+    { id: "default-3", day: "Friday", start: "18:00", end: "20:00" },
+    { id: "default-4", day: "Saturday", start: "10:00", end: "12:00" }
+];
 
-function padNumber(value) {
-    return String(value).padStart(2, "0");
-}
-
-function formatDateKey(date) {
-    return `${date.getFullYear()}-${padNumber(date.getMonth() + 1)}-${padNumber(date.getDate())}`;
-}
-
-function parseDateKey(key) {
-    const [year, month, day] = key.split("-").map(Number);
-    return new Date(year, month - 1, day);
-}
-
-function loadEvents() {
-    const stored = localStorage.getItem("wushuEvents");
+function loadPracticeTimes() {
+    const stored = localStorage.getItem("wushuPracticeTimes");
     if (!stored) {
-        return [];
+        localStorage.setItem("wushuPracticeTimes", JSON.stringify(DEFAULT_PRACTICE_TIMES));
+        return [...DEFAULT_PRACTICE_TIMES];
     }
     try {
         const parsed = JSON.parse(stored);
-        return Array.isArray(parsed) ? parsed : [];
+        return Array.isArray(parsed) ? parsed : [...DEFAULT_PRACTICE_TIMES];
     } catch (error) {
-        return [];
+        return [...DEFAULT_PRACTICE_TIMES];
     }
 }
 
-function saveEvents() {
-    localStorage.setItem("wushuEvents", JSON.stringify(state.events));
+function formatTime12h(value) {
+    if (!value) {
+        return "";
+    }
+    const [hoursStr, minutesStr] = value.split(":");
+    let hours = Number(hoursStr);
+    const suffix = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    if (hours === 0) {
+        hours = 12;
+    }
+    return `${hours}:${minutesStr} ${suffix}`;
 }
 
-function eventOccursOnDate(eventItem, date) {
-    const targetKey = formatDateKey(date);
-    if (eventItem.recurrence === "none") {
-        return eventItem.date === targetKey;
-    }
-    const startDate = parseDateKey(eventItem.date);
-    if (date < startDate) {
-        return false;
-    }
-    if (eventItem.until) {
-        const untilDate = parseDateKey(eventItem.until);
-        if (date > untilDate) {
-            return false;
-        }
-    }
-    if (eventItem.recurrence === "weekly") {
-        return date.getDay() === startDate.getDay();
-    }
-    if (eventItem.recurrence === "monthly") {
-        return date.getDate() === startDate.getDate();
-    }
-    return false;
-}
-
-function eventsForDate(date) {
-    return state.events.filter((eventItem) => eventOccursOnDate(eventItem, date));
-}
-
-function renderCalendar() {
-    const year = state.currentDate.getFullYear();
-    const month = state.currentDate.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const startOffset = firstDay.getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    monthLabel.textContent = monthFormatter.format(state.currentDate);
-    calendarGrid.innerHTML = "";
-
-    for (let i = 0; i < startOffset; i += 1) {
-        const placeholder = document.createElement("div");
-        placeholder.className = "calendar-cell placeholder";
-        calendarGrid.appendChild(placeholder);
-    }
-
-    for (let day = 1; day <= daysInMonth; day += 1) {
-        const date = new Date(year, month, day);
-        const dateKey = formatDateKey(date);
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "calendar-cell";
-        button.dataset.date = dateKey;
-        
-        const dayEvents = eventsForDate(date);
-        const hasSpecialEvent = dayEvents.some(e => e.type === "special");
-        
-        button.innerHTML = `<span class="day-number">${day}</span>${hasSpecialEvent ? '<span class="cell-star">⭐</span>' : ''}`;
-
-        if (formatDateKey(state.selectedDate) === dateKey) {
-            button.classList.add("selected");
-        }
-
-        if (formatDateKey(new Date()) === dateKey) {
-            button.classList.add("today");
-        }
-
-        if (dayEvents.length > 0 && !hasSpecialEvent) {
-            button.classList.add("has-events");
-        }
-
-        calendarGrid.appendChild(button);
-    }
-}
-
-function renderSelectedDate() {
-    selectedDateLabel.textContent = dayFormatter.format(state.selectedDate);
-}
-
-function renderEventList() {
-    const items = eventsForDate(state.selectedDate);
-    eventList.innerHTML = "";
-
-    if (items.length === 0) {
-        const empty = document.createElement("li");
-        empty.className = "event-empty";
-        empty.textContent = "No events scheduled.";
-        eventList.appendChild(empty);
+function renderPracticeGrid() {
+    if (!practiceGrid) {
         return;
     }
 
-    items.forEach((eventItem) => {
-        const listItem = document.createElement("li");
-        listItem.className = "event-item";
-
-        const icon = document.createElement("span");
-        icon.className = eventItem.type === "special" ? "event-icon special-icon" : "event-icon routine-icon";
-        icon.textContent = eventItem.type === "special" ? "⭐" : "📅";
-
-        const info = document.createElement("div");
-        info.className = "event-info";
-
-        const title = document.createElement("h3");
-        title.textContent = eventItem.title;
-
-        const meta = document.createElement("p");
-        const timeLabel = eventItem.time ? eventItem.time : "All day";
-        const durationLabel = eventItem.duration ? `${eventItem.duration} mins` : "";
-        const recurrenceLabel = eventItem.recurrence !== "none" ? `• ${eventItem.recurrence}` : "";
-        const untilLabel = eventItem.until ? `• until ${eventItem.until}` : "";
-        meta.textContent = [timeLabel, durationLabel, recurrenceLabel, untilLabel].filter(Boolean).join(" ");
-
-        info.appendChild(title);
-        info.appendChild(meta);
-
-        listItem.appendChild(icon);
-        listItem.appendChild(info);
-        eventList.appendChild(listItem);
+    const practiceTimes = loadPracticeTimes().slice().sort((a, b) => {
+        const dayDiff = WEEKDAY_ORDER.indexOf(a.day) - WEEKDAY_ORDER.indexOf(b.day);
+        if (dayDiff !== 0) {
+            return dayDiff;
+        }
+        return a.start.localeCompare(b.start);
     });
-}
 
-function renderAll() {
-    renderCalendar();
-    renderSelectedDate();
-    renderEventList();
-}
-
-function shiftMonth(direction) {
-    const year = state.currentDate.getFullYear();
-    const month = state.currentDate.getMonth();
-    state.currentDate = new Date(year, month + direction, 1);
-    renderAll();
-}
-
-function selectDate(dateKey) {
-    state.selectedDate = parseDateKey(dateKey);
-    renderAll();
-}
-
-calendarGrid.addEventListener("click", (event) => {
-    const target = event.target.closest(".calendar-cell");
-    if (!target || target.classList.contains("placeholder")) {
+    if (practiceTimes.length === 0) {
+        practiceGrid.innerHTML = `<p class="schedule-empty">Schedule coming soon — check back later!</p>`;
         return;
     }
-    selectDate(target.dataset.date);
+
+    practiceGrid.innerHTML = practiceTimes
+        .map(
+            (slot) => `
+                <article class="practice-item">
+                    <h3>${slot.day}</h3>
+                    <p>${formatTime12h(slot.start)} - ${formatTime12h(slot.end)}</p>
+                </article>
+            `
+        )
+        .join("");
+}
+
+renderPracticeGrid();
+
+// If an admin updates the schedule in another tab, keep this page in sync live.
+window.addEventListener("storage", (event) => {
+    if (event.key === "wushuPracticeTimes") {
+        renderPracticeGrid();
+    }
 });
-
-prevMonthButton.addEventListener("click", () => shiftMonth(-1));
-nextMonthButton.addEventListener("click", () => shiftMonth(1));
-
-renderAll();

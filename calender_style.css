@@ -58,277 +58,64 @@ body {
     color: #f5f5f5;
 }
 
-.calendar-container {
+.schedule-container {
     display: flex;
     justify-content: center;
-    margin: 40px 0;
+    padding: 30px 20px 60px;
 }
 
-.calendar-layout {
-    width: min(1100px, 92vw);
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    gap: 30px;
-    align-items: start;
-}
-
-.calendar-card {
+.schedule-card {
+    width: min(900px, 92vw);
     background: #f7f7f7;
     border-radius: 18px;
-    padding: 24px;
+    padding: 28px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-.calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-}
-
-.month-label {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #222;
-}
-
-.nav-button {
-    border: none;
-    background: #111;
-    color: #fff;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.nav-button:hover {
-    background: #f0c040;
-    transform: scale(1.05);
-}
-
-.weekday-row {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
+.schedule-header {
+    margin-bottom: 24px;
     text-align: center;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
 }
 
-.calendar-grid {
+.schedule-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: #111;
+}
+
+.practice-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-}
-
-.calendar-cell {
-    border: none;
-    background: #fff;
-    border-radius: 12px;
-    padding: 14px 0;
-    font-weight: 600;
-    color: #222;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-}
-
-.calendar-cell .day-number {
-    pointer-events: none;
-}
-
-.calendar-cell .cell-star {
-    pointer-events: none;
-    font-size: 0.75rem;
-    line-height: 1;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-.calendar-cell span {
-    pointer-events: none;
-}
-
-.calendar-cell:hover {
-    transform: translateY(-2px);
-}
-
-.calendar-cell.placeholder {
-    background: transparent;
-    box-shadow: none;
-    cursor: default;
-}
-
-.calendar-cell.today {
-    border: 2px solid #f0c040;
-}
-
-.calendar-cell.selected {
-    background: #111;
-    color: #fff;
-}
-
-.calendar-cell.has-events::after {
-    content: "";
-    display: block;
-    width: 6px;
-    height: 6px;
-    margin: 8px auto 0;
-    background: #f0c040;
-    border-radius: 50%;
-}
-
-.event-panel {
-    background: #fff;
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
     gap: 18px;
 }
 
-.event-panel-header h2 {
-    margin: 0;
+.practice-item {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    border-left: 6px solid #f0c040;
+}
+
+.practice-item h3 {
+    margin: 0 0 10px;
     font-size: 1.2rem;
-    color: #222;
-}
-
-.event-hint {
-    margin: 6px 0 0;
-    color: #666;
-    font-size: 0.95rem;
-}
-
-.event-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 12px;
-}
-
-.event-empty {
-    color: #777;
-    font-size: 0.95rem;
-}
-
-.event-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    background: #f7f7f7;
-}
-
-.event-icon {
-    font-size: 1.4rem;
-    flex-shrink: 0;
-}
-
-.routine-icon {
-    opacity: 0.7;
-}
-
-.special-icon {
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-}
-
-.event-info {
-    flex: 1;
-}
-
-.event-info h3 {
-    margin: 0 0 4px;
-    font-size: 1rem;
     color: #111;
 }
 
-.event-info p {
+.practice-item p {
     margin: 0;
-    font-size: 0.85rem;
     color: #555;
-}
-
-.remove-button {
-    border: none;
-    background: transparent;
-    color: #d64040;
+    font-size: 1rem;
     font-weight: 600;
-    cursor: pointer;
 }
 
-.event-form {
-    display: grid;
-    gap: 12px;
-}
-
-.event-form label {
-    display: grid;
-    gap: 6px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #222;
-}
-
-.event-form input,
-.event-form select {
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-size: 0.95rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.primary-button {
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #111;
-    color: #fff;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.primary-button:hover {
-    background: #f0c040;
-    color: #111;
-}
-
-@media (max-width: 900px) {
-    .calendar-layout {
+@media (max-width: 700px) {
+    .practice-grid {
         grid-template-columns: 1fr;
     }
 
-    .calendar-card,
-    .event-panel {
+    .schedule-card {
         padding: 20px;
     }
 }
@@ -411,4 +198,134 @@ body {
 .secondary-button:hover {
     background: #111;
     color: #fff;
+}
+
+.primary-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.primary-button:hover {
+    background: #0f5f2e;
+}
+
+.event-hint {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0 0 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 14px;
+}
+
+.form-row label {
+    flex: 1;
+}
+
+/* Practice schedule manager (admin page) */
+.schedule-manager {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    padding: 24px;
+    background: #f7f7f7;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.schedule-manager-header h2 {
+    margin: 0 0 4px;
+    font-size: 1.4rem;
+    color: #111;
+}
+
+.schedule-list {
+    list-style: none;
+    margin: 0 0 22px;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 18px;
+    border-left: 6px solid #f0c040;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.schedule-item-info h3 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    color: #111;
+}
+
+.schedule-item-info p {
+    margin: 0;
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.schedule-empty-item {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    list-style: none;
+}
+
+.schedule-form {
+    display: grid;
+    gap: 14px;
+    max-width: 500px;
+}
+
+.schedule-form label {
+    display: grid;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.schedule-form select,
+.schedule-form input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.remove-button {
+    padding: 8px 14px;
+    border: 1px solid #d64040;
+    border-radius: 8px;
+    background: transparent;
+    color: #d64040;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.remove-button:hover {
+    background: #d64040;
+    color: #fff;
+}
+
+.schedule-empty {
+    text-align: center;
+    color: #777;
+    font-style: italic;
 }

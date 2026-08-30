@@ -39,7 +39,40 @@
             <h1>Manage Events</h1>
             <button id="logout-button" class="secondary-button">Logout</button>
         </div>
-        
+
+        <div class="schedule-manager">
+            <div class="schedule-manager-header">
+                <h2>Practice Schedule</h2>
+                <p class="event-hint">Add or remove the recurring practice boxes shown on the public Calendar page.</p>
+            </div>
+            <ul class="schedule-list" id="schedule-list"></ul>
+            <form class="schedule-form" id="schedule-form">
+                <label>
+                    Day
+                    <select id="schedule-day">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </label>
+                <div class="form-row">
+                    <label>
+                        Start time
+                        <input type="time" id="schedule-start" required>
+                    </label>
+                    <label>
+                        End time
+                        <input type="time" id="schedule-end" required>
+                    </label>
+                </div>
+                <button type="submit" class="primary-button">Add practice time</button>
+            </form>
+        </div>
+
         <div class="calendar-container">
             <div class="calendar-layout">
                 <section class="calendar-card">

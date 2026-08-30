@@ -24,36 +24,35 @@
     </header>
     <div class="content">
         <h1>Our Schedule</h1>
-        <p>Check out our calendar for upcoming events and practices!</p>
+        <p>Standard practice times for the club.</p>
     </div>
-    <div class="calendar-container">
-        <div class="calendar-layout">
-            <section class="calendar-card">
-                <div class="calendar-header">
-                    <button class="nav-button" id="prev-month" aria-label="Previous month">&#8249;</button>
-                    <div class="month-label" id="month-label"></div>
-                    <button class="nav-button" id="next-month" aria-label="Next month">&#8250;</button>
-                </div>
-                <div class="weekday-row">
-                    <span>Sun</span>
-                    <span>Mon</span>
-                    <span>Tue</span>
-                    <span>Wed</span>
-                    <span>Thu</span>
-                    <span>Fri</span>
-                    <span>Sat</span>
-                </div>
-                <div class="calendar-grid" id="calendar-grid"></div>
-            </section>
-            <aside class="event-panel">
-                <div class="event-panel-header">
-                    <h2 id="selected-date-label">Selected date</h2>
-                    <p class="event-hint">Upcoming practices, meetings, and events.</p>
-                </div>
-                <ul class="event-list" id="event-list"></ul>
-            </aside>
-        </div>
-    </div>
-    
+
+    <main class="schedule-container">
+        <section class="schedule-card">
+            <div class="schedule-header">
+                <h2>Standard Practice Times</h2>
+            </div>
+
+            <div class="practice-grid" id="practice-grid">
+                <article class="practice-item">
+                    <h3>Monday</h3>
+                    <p>6:00 PM - 8:00 PM</p>
+                </article>
+                <article class="practice-item">
+                    <h3>Wednesday</h3>
+                    <p>6:00 PM - 8:00 PM</p>
+                </article>
+                <article class="practice-item">
+                    <h3>Friday</h3>
+                    <p>6:00 PM - 8:00 PM</p>
+                </article>
+                <article class="practice-item">
+                    <h3>Saturday</h3>
+                    <p>10:00 AM - 12:00 PM</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
     <script src="calendar.js"></script>
 </body>

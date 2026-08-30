@@ -25,10 +25,27 @@ const eventDurationInput = document.getElementById("event-duration");
 const eventRecurrenceInput = document.getElementById("event-recurrence");
 const eventUntilInput = document.getElementById("event-until");
 
+// Practice schedule elements
+const scheduleList = document.getElementById("schedule-list");
+const scheduleForm = document.getElementById("schedule-form");
+const scheduleDayInput = document.getElementById("schedule-day");
+const scheduleStartInput = document.getElementById("schedule-start");
+const scheduleEndInput = document.getElementById("schedule-end");
+
+const WEEKDAY_ORDER = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+const DEFAULT_PRACTICE_TIMES = [
+    { id: "default-1", day: "Monday", start: "18:00", end: "20:00" },
+    { id: "default-2", day: "Wednesday", start: "18:00", end: "20:00" },
+    { id: "default-3", day: "Friday", start: "18:00", end: "20:00" },
+    { id: "default-4", day: "Saturday", start: "10:00", end: "12:00" }
+];
+
 const state = {
     currentDate: new Date(),
     selectedDate: new Date(),
     events: loadEvents(),
+    practiceTimes: loadPracticeTimes(),
     authenticated: checkAuth()
 };
 
@@ -211,6 +228,102 @@ function renderAll() {
     renderEventList();
 }
 
+// --- Practice schedule (shown on the public Calendar page) ---
+
+function loadPracticeTimes() {
+    const stored = localStorage.getItem("wushuPracticeTimes");
+    if (!stored) {
+        localStorage.setItem("wushuPracticeTimes", JSON.stringify(DEFAULT_PRACTICE_TIMES));
+        return [...DEFAULT_PRACTICE_TIMES];
+    }
+    try {
+        const parsed = JSON.parse(stored);
+        return Array.isArray(parsed) ? parsed : [...DEFAULT_PRACTICE_TIMES];
+    } catch (error) {
+        return [...DEFAULT_PRACTICE_TIMES];
+    }
+}
+
+function savePracticeTimes() {
+    localStorage.setItem("wushuPracticeTimes", JSON.stringify(state.practiceTimes));
+}
+
+function formatTime12h(value) {
+    if (!value) {
+        return "";
+    }
+    const [hoursStr, minutesStr] = value.split(":");
+    let hours = Number(hoursStr);
+    const suffix = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    if (hours === 0) {
+        hours = 12;
+    }
+    return `${hours}:${minutesStr} ${suffix}`;
+}
+
+function sortedPracticeTimes() {
+    return [...state.practiceTimes].sort((a, b) => {
+        const dayDiff = WEEKDAY_ORDER.indexOf(a.day) - WEEKDAY_ORDER.indexOf(b.day);
+        if (dayDiff !== 0) {
+            return dayDiff;
+        }
+        return a.start.localeCompare(b.start);
+    });
+}
+
+function renderPracticeSchedule() {
+    const items = sortedPracticeTimes();
+    scheduleList.innerHTML = "";
+
+    if (items.length === 0) {
+        const empty = document.createElement("li");
+        empty.className = "schedule-empty-item";
+        empty.textContent = "No practice times set. Add one below.";
+        scheduleList.appendChild(empty);
+        return;
+    }
+
+    items.forEach((slot) => {
+        const listItem = document.createElement("li");
+        listItem.className = "schedule-item";
+
+        const info = document.createElement("div");
+        info.className = "schedule-item-info";
+
+        const title = document.createElement("h3");
+        title.textContent = slot.day;
+
+        const meta = document.createElement("p");
+        meta.textContent = `${formatTime12h(slot.start)} - ${formatTime12h(slot.end)}`;
+
+        info.appendChild(title);
+        info.appendChild(meta);
+        listItem.appendChild(info);
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "remove-button";
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", () => removePracticeTime(slot.id));
+
+        listItem.appendChild(removeButton);
+        scheduleList.appendChild(listItem);
+    });
+}
+
+function addPracticeTime(slot) {
+    state.practiceTimes.push(slot);
+    savePracticeTimes();
+    renderPracticeSchedule();
+}
+
+function removePracticeTime(id) {
+    state.practiceTimes = state.practiceTimes.filter((slot) => slot.id !== id);
+    savePracticeTimes();
+    renderPracticeSchedule();
+}
+
 function showLogin() {
     loginScreen.style.display = "flex";
     adminContent.style.display = "none";
@@ -220,6 +333,7 @@ function showAdmin() {
     loginScreen.style.display = "none";
     adminContent.style.display = "block";
     renderAll();
+    renderPracticeSchedule();
 }
 
 function shiftMonth(direction) {
@@ -306,6 +420,26 @@ eventForm.addEventListener("submit", (event) => {
     eventDurationInput.value = "";
     eventRecurrenceInput.value = "none";
     eventUntilInput.value = "";
+});
+
+scheduleForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const day = scheduleDayInput.value;
+    const start = scheduleStartInput.value;
+    const end = scheduleEndInput.value;
+    if (!day || !start || !end) {
+        return;
+    }
+
+    addPracticeTime({
+        id: `schedule-${Date.now()}`,
+        day,
+        start,
+        end
+    });
+
+    scheduleStartInput.value = "";
+    scheduleEndInput.value = "";
 });
 
 // Initialize
