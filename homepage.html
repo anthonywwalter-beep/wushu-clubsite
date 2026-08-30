@@ -12,13 +12,15 @@
 <body>  
     <!-- Top navigation bar -->
     <header class="navbar">
-        
-        <div class="logo-section">
-            <img src="Images/WushuDuck.png" alt="UO Wushu Logo" class="logo">
-            <span class="site-title">UOWUSHU</span>
-        </div>
+
+        <a class="brand-link" href="homepage.html" aria-label="Go to homepage">
+            <div class="logo-section">
+                <img src="Images/WushuDuck.png" alt="UO Wushu Logo" class="logo">
+                <span class="site-title">UOWUSHU</span>
+            </div>
+        </a>
         <nav class="nav-links">
-            <a href="homepage.html">Home</a>
+            <a href="homepage.html" class="active" aria-current="page">Home</a>
             <a href="calendar.html">Calendar</a>
             <a href="https://www.givecampus.com/campaigns/67036/donations/new?designation_id=5797121&">Donate</a>
             <a href="contact.html">Contact Us</a>
@@ -27,17 +29,43 @@
 
     <!-- Initial opening banner -->
     <section class="intro-slide">
-        <div class="intro-left">
-            <img src="Images/UOWushuLogo.png" alt="UO Wushu Logo" width="780" height="750" class="intro-logo">
+        <div class="hero-carousel-column">
+            <div class="hero-carousel" aria-label="UO Wushu image carousel">
+                <div class="hero-carousel-track">
+                    <figure class="hero-slide active">
+                        <img src="Images/Placeholder3.jpg" alt="UO Wushu team pose together">
+                    </figure>
+                    <figure class="hero-slide">
+                        <img src="Images/Placeholder2.jpg" alt="UO Wushu group training moment">
+                    </figure>
+                    <figure class="hero-slide">
+                        <img src="Images/Placeholder1.jpg" alt="UO Wushu action placeholder image">
+                    </figure>
+                </div>
+
+                <button class="carousel-btn prev" type="button" aria-label="Previous image">&#10094;</button>
+                <button class="carousel-btn next" type="button" aria-label="Next image">&#10095;</button>
+
+                <div class="carousel-dots" role="tablist" aria-label="Choose hero image">
+                    <button class="carousel-dot active" type="button" aria-label="Show slide 1"></button>
+                    <button class="carousel-dot" type="button" aria-label="Show slide 2"></button>
+                    <button class="carousel-dot" type="button" aria-label="Show slide 3"></button>
+                </div>
+            </div>
+
+            <div class="hero-message">
+                <h1>Welcome to UO Wushu!</h1>
+                <p>No experience necessary. Just interest.</p>
+            </div>
         </div>
-        <div class="intro-right">
-            <h1>Welcome to UO Wushu!</h1>
-            <h1>No experience necessary! Just interest.</h1>
+
+        <div class="hero-logo-column">
+            <img src="Images/UOWushuLogo.png" alt="UO Wushu Logo" class="hero-logo">
         </div>
     </section>
 
     <!-- Information section -->
-    <section class="info-slide">
+    <section class="info-slide scroll-reveal">
         <div class="info-left">
             <img src="Images/FunWushuGroupPic.jpg" alt="Hype Wushu Image">
         </div>
@@ -51,7 +79,7 @@
     </section>
 
     <!-- Information section 2 -->
-    <section class="info-slide-2">
+    <section class="info-slide-2 scroll-reveal">
         <div class="info-left-2">
             <img src="Images/Placeholder1.jpg" alt="Placeholder Image">
         </div>
@@ -65,7 +93,7 @@
     </section>
 
     <!-- Upcoming Events -->
-    <section class="events-slide">
+    <section class="events-slide scroll-reveal">
         <div class="events-content">
             <h2>Upcoming Events</h2>
             <div class="events-list">
@@ -120,6 +148,106 @@
             <div class="footer-copyright">&copy; 2024 UO Wushu. All rights reserved.</div>
         </div>
     </footer>
-    </footer>
-    </footer>
+
+    <script>
+        const navbar = document.querySelector('.navbar');
+        const revealTargets = document.querySelectorAll('.scroll-reveal, .event-card');
+        const slides = Array.from(document.querySelectorAll('.hero-slide'));
+        const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+        const prevButton = document.querySelector('.carousel-btn.prev');
+        const nextButton = document.querySelector('.carousel-btn.next');
+        const carousel = document.querySelector('.hero-carousel');
+        let currentSlide = 0;
+        let autoplayId;
+        const autoplayDelayMs = 4600;
+
+        const setActiveSlide = (index) => {
+            currentSlide = (index + slides.length) % slides.length;
+
+            slides.forEach((slide, slideIndex) => {
+                slide.classList.toggle('active', slideIndex === currentSlide);
+            });
+
+            dots.forEach((dot, dotIndex) => {
+                dot.classList.toggle('active', dotIndex === currentSlide);
+            });
+        };
+
+        const nextSlide = () => setActiveSlide(currentSlide + 1);
+        const previousSlide = () => setActiveSlide(currentSlide - 1);
+
+        const startAutoplay = () => {
+            stopAutoplay();
+            autoplayId = window.setInterval(nextSlide, autoplayDelayMs);
+        };
+
+        const stopAutoplay = () => {
+            if (!autoplayId) {
+                return;
+            }
+            window.clearInterval(autoplayId);
+            autoplayId = null;
+        };
+
+        prevButton.addEventListener('click', () => {
+            previousSlide();
+            stopAutoplay();
+            startAutoplay();
+        });
+
+        nextButton.addEventListener('click', () => {
+            nextSlide();
+            stopAutoplay();
+            startAutoplay();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                setActiveSlide(index);
+                stopAutoplay();
+                startAutoplay();
+            });
+        });
+
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+        carousel.addEventListener('focusin', stopAutoplay);
+        carousel.addEventListener('focusout', (event) => {
+            if (!carousel.contains(event.relatedTarget)) {
+                startAutoplay();
+            }
+        });
+
+        setActiveSlide(0);
+        startAutoplay();
+
+        const updateNavbarState = () => {
+            if (window.scrollY > 24) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        };
+
+        window.addEventListener('scroll', updateNavbarState, { passive: true });
+        updateNavbarState();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.18 });
+
+        revealTargets.forEach((element, index) => {
+            if (element.classList.contains('event-card')) {
+                element.classList.add('scroll-reveal');
+                element.style.transitionDelay = `${index * 80}ms`;
+            }
+            observer.observe(element);
+        });
+    </script>
 </body>
