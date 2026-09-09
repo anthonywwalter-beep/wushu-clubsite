@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Banyan Jullian",
+    "role": "President",
+    "image": "Images/Placeholder1.jpg"
+  },
+  {
+    "name": "Aaron Pham",
+    "role": "Treasurer",
+    "image": "Images/Placeholder2.jpg"
+  },
+  {
+    "name": "Brooklyn Diaz",
+    "role": "Captain",
+    "image": "Images/Placeholder3.jpg"
+  },
+  {
+    "name": "Anthony Walter",
+    "role": "Internal Coordinator",
+    "image": "Images/Placeholder1.jpg"
+  },
+  {
+    "name": "Elise Yeung",
+    "role": "Media Coordinator",
+    "image": "Images/Placeholder2.jpg"
+  }
+]

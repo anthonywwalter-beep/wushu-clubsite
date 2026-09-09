@@ -54,8 +54,8 @@
             </div>
 
             <div class="hero-message">
-                <h1>Welcome to UO Wushu!</h1>
-                <p>No experience necessary. Just interest.</p>
+                <h1 id="hero-title">Welcome to UO Wushu!</h1>
+                <p id="hero-subtitle">No experience necessary. Just interest.</p>
             </div>
         </div>
 
@@ -71,10 +71,12 @@
         </div>
         <div class="info-right">
             <h2>Who We Are</h2>
-            <p>UO Wushu is a student organization at the University of Oregon dedicated to the practice and promotion of Wushu, a traditional Chinese martial art. 
-                We offer training sessions, workshops, and events for students of all skill levels. 
-                Whether you're a beginner or an experienced practitioner, we welcome you to join our community and explore the art of Wushu with us!
-            </p>
+            <div id="who-we-are-copy">
+                <p>UO Wushu is a student organization at the University of Oregon dedicated to the practice and promotion of Wushu, a traditional Chinese martial art. 
+                    We offer training sessions, workshops, and events for students of all skill levels. 
+                    Whether you're a beginner or an experienced practitioner, we welcome you to join our community and explore the art of Wushu with us!
+                </p>
+            </div>
         </div>
     </section>
 
@@ -85,10 +87,12 @@
         </div>
         <div class="info-right-2">
             <h2>What We Do</h2>
-            <p>At UO Wushu, we provide a supportive and inclusive environment for students to learn and practice Wushu. 
-                Our activities include regular training sessions, workshops with guest instructors, and participation in local and national Wushu competitions. 
-                We also organize social events and community outreach programs to promote the art of Wushu and foster camaraderie among our members.
-            </p>
+            <div id="what-we-do-copy">
+                <p>At UO Wushu, we provide a supportive and inclusive environment for students to learn and practice Wushu. 
+                    Our activities include regular training sessions, workshops with guest instructors, and participation in local and national Wushu competitions. 
+                    We also organize social events and community outreach programs to promote the art of Wushu and foster camaraderie among our members.
+                </p>
+            </div>
         </div>
     </section>
 
@@ -149,6 +153,7 @@
         </div>
     </footer>
 
+    <script src="js/content-loader.js"></script>
     <script>
         const navbar = document.querySelector('.navbar');
         const revealTargets = document.querySelectorAll('.scroll-reveal, .event-card');

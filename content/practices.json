@@ -1,0 +1,11 @@
+{
+  "title": "Practice Info",
+  "location": "Student Rec Center",
+  "days": ["Mondays", "Wednesdays"],
+  "time": "7:00 PM - 9:00 PM",
+  "notes": [
+    "No experience required",
+    "Bring water and comfortable clothing",
+    "All skill levels welcome"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "title": "Welcome to UO Wushu!",
+    "subtitle": "No experience necessary! Just interest."
+  },
+  "sections": {
+    "whoWeAre": {
+      "title": "Who We Are",
+      "content": "UO Wushu is a student organization at the University of Oregon dedicated to the practice and promotion of Wushu, a traditional Chinese martial art. We offer training sessions, workshops, and events for students of all skill levels. Whether you're a beginner or an experienced practitioner, we welcome you to join our community and explore the art of Wushu with us!"
+    },
+    "whatWeDo": {
+      "title": "What We Do",
+      "content": "At UO Wushu, we provide a supportive and inclusive environment for students to learn and practice Wushu. Our activities include regular training sessions, workshops with guest instructors, and participation in local and national Wushu competitions. We also organize social events and community outreach programs to promote the art of Wushu and foster camaraderie among our members."
+    }
+  }
+}
