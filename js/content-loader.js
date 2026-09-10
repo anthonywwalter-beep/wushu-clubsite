@@ -128,7 +128,11 @@
 
     fetchJson('content/officers.json')
       .then((data) => {
-        list.innerHTML = data.map((person) => {
+        const officers = Array.isArray(data)
+          ? data
+          : (Array.isArray(data?.officers) ? data.officers : []);
+
+        list.innerHTML = officers.map((person) => {
           return `
             <li class="officer-item">
               <img src="${safeHtml(person.image)}" alt="${safeHtml(person.name)}" />
