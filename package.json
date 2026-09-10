@@ -1,0 +1,11 @@
+{
+  "name": "uo-wushu-clubsite",
+  "private": true,
+  "version": "1.0.0",
+  "description": "UO Wushu Club static website intended for Cloudflare Pages static hosting.",
+  "scripts": {
+    "build": "echo \"Static site: no build step required.\"",
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  }
+}
