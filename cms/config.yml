@@ -7,5 +7,5 @@ backend:
 
 publish_mode: editorial_workflow
 
-media_folder: "content/media"
-public_folder: "/content/media"
+media_folder: content/media
+public_folder: /content/media
