@@ -6,9 +6,9 @@ backend:
   name: github
   repo: anthonywwalter-beep/wushu-clubsite
   branch: main
-  # Replace with your real OAuth provider endpoint for Decap GitHub auth.
-  base_url: "https://your-oauth-provider.example.com"
-  auth_endpoint: "/auth"
+  base_url: https://wushu-clubsite.pages.dev/api/auth
+  auth_endpoint: auth
+  cms_label: "UO Wushu Club CMS"
 
 # Optional local workflow support for Decap local proxy server.
 local_backend: true
