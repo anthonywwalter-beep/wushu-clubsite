@@ -18,6 +18,6 @@ export async function onRequestGet(context) {
   const tokenData = await tokenResponse.json();
   const accessToken = tokenData.access_token;
 
-  const redirectToAdmin = `${url.origin}/admin/#access_token=${accessToken}`;
-  return Response.redirect(redirectToAdmin, 302);
+  const redirectToCms = `${url.origin}/cms/#access_token=${accessToken}`;
+  return Response.redirect(redirectToCms, 302);
 }
