@@ -2,10 +2,24 @@ backend:
   name: github
   repo: anthonywwalter-beep/wushu-clubsite
   branch: main
-  base_url: https://wushu-clubsite.pages.dev/api/auth
+  base_url: https://wushu-clubsite.pages.dev/api
   auth_endpoint: auth
+
+site_url: https://wushu-clubsite.pages.dev
+display_url: https://wushu-clubsite.pages.dev
 
 publish_mode: editorial_workflow
 
 media_folder: content/media
 public_folder: /content/media
+
+collections:
+  - name: about
+    label: About
+    files:
+      - file: "content/about.md"
+        label: About Page
+        name: about
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Body, name: body, widget: markdown }
