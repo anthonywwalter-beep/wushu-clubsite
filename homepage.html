@@ -21,7 +21,6 @@
         </a>
         <nav class="nav-links">
             <a href="homepage.html" class="active" aria-current="page">Home</a>
-            <a href="calendar.html">Calendar</a>
             <a href="https://www.givecampus.com/campaigns/67036/donations/new?designation_id=5797121&">Donate</a>
             <a href="contact.html">Contact Us</a>
         </nav>
@@ -81,7 +80,7 @@
     <!-- Information section 2 -->
     <section class="info-slide-2 scroll-reveal">
         <div class="info-left-2">
-            <img src="Images/Placeholder1.jpg" alt="Placeholder Image">
+            <img src="Images/WhatWeDo.png" alt="What We Do Image">
         </div>
         <div class="info-right-2">
             <h2>What We Do</h2>
@@ -92,34 +91,27 @@
         </div>
     </section>
 
-    <!-- Upcoming Events -->
+    <!-- Our Schedule -->
     <section class="events-slide scroll-reveal">
         <div class="events-content">
-            <h2>Upcoming Events</h2>
+            <p class="schedule-eyebrow">Train with us</p>
+            <h2>Our Schedule</h2>
+            <p class="schedule-intro">Join us for practice three times a week. All experience levels are welcome.</p>
             <div class="events-list">
                 <div class="event-card">
-                    <div class="event-title">Spring Practice Kickoff</div>
-                    <div class="event-date">March 10, 2026 &mdash; 6:00 PM</div>
-                    <div class="event-desc">Join us for our first practice of the spring term! All levels welcome.</div>
-                    <div class="event-location">Student Rec Center, Room 101</div>
+                    <div class="event-day">Monday</div>
+                    <div class="event-time">7:00 PM &ndash; 9:00 PM</div>
+                    <div class="event-location">Gerlinger, Room 219</div>
                 </div>
                 <div class="event-card">
-                    <div class="event-title">Guest Workshop: Shaolin Basics</div>
-                    <div class="event-date">March 15, 2026 &mdash; 2:00 PM</div>
-                    <div class="event-desc">Special guest instructor from Shaolin Temple will teach foundational forms.</div>
-                    <div class="event-location">Student Rec Center, Room 202</div>
+                    <div class="event-day">Wednesday</div>
+                    <div class="event-time">7:00 PM &ndash; 9:00 PM</div>
+                    <div class="event-location">Gerlinger, Room 219</div>
                 </div>
                 <div class="event-card">
-                    <div class="event-title">Performance at DuckFest</div>
-                    <div class="event-date">March 22, 2026 &mdash; 4:30 PM</div>
-                    <div class="event-desc">Catch UO Wushu live at DuckFest! Showcasing group and solo routines.</div>
-                    <div class="event-location">Memorial Quad</div>
-                </div>
-                <div class="event-card">
-                    <div class="event-title">Pacific NW Wushu Competition</div>
-                    <div class="event-date">April 5, 2026 &mdash; 9:00 AM</div>
-                    <div class="event-desc">Compete or cheer on our team at the regional tournament.</div>
-                    <div class="event-location">Portland Convention Center</div>
+                    <div class="event-day">Friday</div>
+                    <div class="event-time">5:00 PM &ndash; 7:00 PM</div>
+                    <div class="event-location">Gerlinger, Room 219</div>
                 </div>
             </div>
         </div>
@@ -132,7 +124,6 @@
             <div class="footer-title">UOWUSHU</div>
             <div class="footer-links">
                 <a href="homepage.html">Home</a>
-                <a href="calendar.html">Calendar</a>
                 <a href="contact.html">Contact</a>
                 <a href="https://www.givecampus.com/campaigns/67036/donations/new?designation_id=5797121&">Donate</a>
             </div>
@@ -151,7 +142,7 @@
 
     <script>
         const navbar = document.querySelector('.navbar');
-        const revealTargets = document.querySelectorAll('.scroll-reveal, .event-card');
+        const revealTargets = document.querySelectorAll('.scroll-reveal');
         const slides = Array.from(document.querySelectorAll('.hero-slide'));
         const dots = Array.from(document.querySelectorAll('.carousel-dot'));
         const prevButton = document.querySelector('.carousel-btn.prev');
@@ -243,10 +234,6 @@
         }, { threshold: 0.18 });
 
         revealTargets.forEach((element, index) => {
-            if (element.classList.contains('event-card')) {
-                element.classList.add('scroll-reveal');
-                element.style.transitionDelay = `${index * 80}ms`;
-            }
             observer.observe(element);
         });
     </script>
