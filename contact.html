@@ -87,7 +87,7 @@
                 const isMessageValid = payload.name.length >= 2 && payload.subject.length >= 3 && payload.message.length >= 10;
 
                 if (honeypotFilled || timeElapsed < 3000 || !isMessageValid) {
-                    status.textContent = 'Please fill out the form normally and try again.';
+                    status.textContent = 'Please complete the form, wait a moment before submitting, and include a clear name, subject, and message before sending.';
                     status.className = 'form-status error';
                     return;
                 }
