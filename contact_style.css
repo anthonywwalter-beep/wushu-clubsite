@@ -10,6 +10,9 @@ body {
 h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
 }
+img {
+    max-width: 100%;
+}
 
 /* Navbar Styling */
 .navbar {
@@ -282,7 +285,14 @@ h1, h2, h3 {
         grid-template-columns: 1fr;
     }
 
+    .contact-page {
+        padding: 24px 16px 32px;
+        gap: 0;
+    }
+
     .contact-card {
+        width: 100%;
+        max-width: 460px;
         padding: 28px 20px;
     }
 }

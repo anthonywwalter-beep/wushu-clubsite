@@ -30,26 +30,12 @@
     <section class="intro-slide">
         <div class="hero-carousel-column">
             <div class="hero-carousel" aria-label="UO Wushu image carousel">
-                <div class="hero-carousel-track">
-                    <figure class="hero-slide active">
-                        <img src="Images/BanyanWhipKick.JPG" alt="UO Wushu team pose together">
-                    </figure>
-                    <figure class="hero-slide">
-                        <img src="Images/CollegiateOPicture.JPG" alt="UO Wushu group training moment">
-                    </figure>
-                    <figure class="hero-slide">
-                        <img src="Images/FanPose.JPEG" alt="UO Wushu action placeholder image">
-                    </figure>
-                </div>
+                <div class="hero-carousel-track"></div>
 
                 <button class="carousel-btn prev" type="button" aria-label="Previous image">&#10094;</button>
                 <button class="carousel-btn next" type="button" aria-label="Next image">&#10095;</button>
 
-                <div class="carousel-dots" role="tablist" aria-label="Choose hero image">
-                    <button class="carousel-dot active" type="button" aria-label="Show slide 1"></button>
-                    <button class="carousel-dot" type="button" aria-label="Show slide 2"></button>
-                    <button class="carousel-dot" type="button" aria-label="Show slide 3"></button>
-                </div>
+                <div class="carousel-dots" role="tablist" aria-label="Choose hero image"></div>
             </div>
 
             <div class="hero-message">
@@ -64,7 +50,7 @@
     </section>
 
     <!-- Information section -->
-    <section class="info-slide scroll-reveal">
+    <section class="info-slide">
         <div class="info-left">
             <img src="Images/IceSkating2.JPEG" alt="Hype Wushu Image">
         </div>
@@ -78,7 +64,7 @@
     </section>
 
     <!-- Information section 2 -->
-    <section class="info-slide-2 scroll-reveal">
+    <section class="info-slide-2">
         <div class="info-left-2">
             <img src="Images/WhatWeDo.png" alt="What We Do Image">
         </div>
@@ -92,7 +78,7 @@
     </section>
 
     <!-- Our Schedule -->
-    <section class="events-slide scroll-reveal">
+    <section class="events-slide">
         <div class="events-content">
             <p class="schedule-eyebrow">Train with us</p>
             <h2>Our Schedule</h2>
@@ -142,7 +128,36 @@
 
     <script>
         const navbar = document.querySelector('.navbar');
-        const revealTargets = document.querySelectorAll('.scroll-reveal');
+
+        // Add or remove entries here to update the hero carousel.
+        const heroImages = [
+            { src: 'Images/BanyanWhipKick.JPG', alt: 'UO Wushu team pose together' },
+            { src: 'Images/CollegiateOPicture.JPG', alt: 'UO Wushu group training moment' },
+            { src: 'Images/FanPose.JPEG', alt: 'UO Wushu action placeholder image' },
+            { src: 'Images/BACKFLIP.PNG', alt: 'UO Wushu member performing a backflip' },
+            { src: 'Images/CollegiateSelfie.JPG', alt: 'UO Wushu team selfie at a collegiate event' },
+            { src: 'Images/FunWushuGroupPic.jpg', alt: 'UO Wushu group having fun together' }
+        ];
+
+        const carouselTrack = document.querySelector('.hero-carousel-track');
+        const carouselDots = document.querySelector('.carousel-dots');
+
+        heroImages.forEach((image, index) => {
+            const slide = document.createElement('figure');
+            slide.className = 'hero-slide';
+            const img = document.createElement('img');
+            img.src = image.src;
+            img.alt = image.alt;
+            slide.appendChild(img);
+            carouselTrack.appendChild(slide);
+
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot';
+            dot.setAttribute('aria-label', `Show slide ${index + 1}`);
+            carouselDots.appendChild(dot);
+        });
+
         const slides = Array.from(document.querySelectorAll('.hero-slide'));
         const dots = Array.from(document.querySelectorAll('.carousel-dot'));
         const prevButton = document.querySelector('.carousel-btn.prev');
@@ -222,19 +237,5 @@
 
         window.addEventListener('scroll', updateNavbarState, { passive: true });
         updateNavbarState();
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
-                entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
-            });
-        }, { threshold: 0.18 });
-
-        revealTargets.forEach((element, index) => {
-            observer.observe(element);
-        });
     </script>
 </body>
