@@ -30,7 +30,10 @@
             <h1>Send us a message</h1>
             <p class="contact-copy">Questions about practices, events, or joining the club? Reach out and we’ll get back to you.</p>
 
-            <form id="contactForm" class="message-form">
+            <form id="contactForm" class="message-form" novalidate>
+                <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
+                <input type="hidden" name="form_started_at" id="form_started_at">
+
                 <div class="field-row">
                     <div class="field-group">
                         <label for="name">Name</label>
@@ -62,17 +65,32 @@
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('contactForm');
             const status = document.getElementById('form-status');
+            const startedAtField = document.getElementById('form_started_at');
+
+            startedAtField.value = Date.now();
 
             form.addEventListener('submit', async function (event) {
                 event.preventDefault();
 
                 const formData = new FormData(form);
                 const payload = {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    subject: formData.get('subject'),
-                    message: formData.get('message')
+                    name: String(formData.get('name') || '').trim(),
+                    email: String(formData.get('email') || '').trim(),
+                    subject: String(formData.get('subject') || '').trim(),
+                    message: String(formData.get('message') || '').trim(),
+                    website: String(formData.get('website') || '').trim()
                 };
+
+                const honeypotFilled = payload.website.length > 0;
+                const startedAt = Number(formData.get('form_started_at') || 0);
+                const timeElapsed = Date.now() - startedAt;
+                const isMessageValid = payload.name.length >= 2 && payload.subject.length >= 3 && payload.message.length >= 10;
+
+                if (honeypotFilled || timeElapsed < 3000 || !isMessageValid) {
+                    status.textContent = 'Please fill out the form normally and try again.';
+                    status.className = 'form-status error';
+                    return;
+                }
 
                 status.textContent = 'Sending...';
                 status.className = 'form-status';
@@ -84,7 +102,12 @@
                             'Content-Type': 'application/json',
                             'Accept': 'application/json'
                         },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({
+                            name: payload.name,
+                            email: payload.email,
+                            subject: payload.subject,
+                            message: payload.message
+                        })
                     });
 
                     if (!response.ok) {
@@ -92,6 +115,7 @@
                     }
 
                     form.reset();
+                    startedAtField.value = Date.now();
                     status.textContent = 'Your message was sent successfully.';
                     status.classList.add('success');
                 } catch (error) {

@@ -203,6 +203,15 @@ h1, h2, h3 {
     min-height: 120px;
 }
 
+.honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
 .message-form input::placeholder,
 .message-form textarea::placeholder {
     color: rgba(245, 245, 245, 0.55);
