@@ -3,22 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tester File</title>
-    <link rel="stylesheet" href="style.css">
+    <title>UO Wushu</title>
+    <link rel="stylesheet" href="contact_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>  
     <header class="navbar">
-        
-        <div class="logo-section">
-            <img src="Images/WushuLogo.png" alt="UO Wushu Logo" class="logo">
-            <span class="site-title">UOWUSHU</span>
-        </div>
+        <a class="brand-link" href="homepage.html" aria-label="Go to homepage">
+            <div class="logo-section">
+                <img src="Images/WushuDuck.png" alt="UO Wushu Logo" class="logo">
+                <span class="site-title">UOWUSHU</span>
+            </div>
+        </a>
 
         <nav class="nav-links">
             <a href="homepage.html">Home</a>
             <a href="https://www.givecampus.com/campaigns/67036/donations/new?designation_id=5797121&">Donate</a>
-            <a href="contact.html">Contact Us</a>
+            <a href="contact.html" class="active" aria-current="page">Contact Us</a>
         </nav>
-    </header>   
+    </header>
+
+    <main class="contact-page">
+        <section class="contact-card">
+            <p class="eyebrow">Get in touch</p>
+            <h1>Send us a message</h1>
+            <p class="contact-copy">Questions about practices, events, or joining the club? Reach out and we’ll get back to you.</p>
+
+            <form id="contactForm" class="message-form">
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text" placeholder="Your name" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="subject">Subject</label>
+                    <input id="subject" name="subject" type="text" placeholder="" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="message">Your message</label>
+                    <textarea id="message" name="message" rows="6" placeholder="Write your message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">Send message</button>
+                <p id="form-status" class="form-status" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('contactForm');
+            const status = document.getElementById('form-status');
+
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+                const payload = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message')
+                };
+
+                status.textContent = 'Sending...';
+                status.className = 'form-status';
+
+                try {
+                    const response = await fetch('https://formsubmit.co/ajax/e8b10e7be8916e37a1fb0a1659162ce5', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Submission failed');
+                    }
+
+                    form.reset();
+                    status.textContent = 'Your message was sent successfully.';
+                    status.classList.add('success');
+                } catch (error) {
+                    status.textContent = 'Something went wrong. Please email wushu@uoregon.edu directly.';
+                    status.classList.add('error');
+                }
+            });
+        });
+    </script>
 </body>
