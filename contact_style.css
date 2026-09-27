@@ -114,7 +114,7 @@ img {
     min-height: calc(100vh - 82px);
     padding: 30px 24px 26px;
     background-color: #0a0a0a;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(Images/WushuTeamGroupPose.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(Images/CollegiateSelfie.JPG);
     background-size: cover;
     background-position: 75% 32%;
     background-repeat: no-repeat;

@@ -13,14 +13,14 @@
     <!-- Top navigation bar -->
     <header class="navbar">
 
-        <a class="brand-link" href="homepage.html" aria-label="Go to homepage">
+        <a class="brand-link" href="index.html" aria-label="Go to homepage">
             <div class="logo-section">
                 <img src="Images/WushuDuck.png" alt="UO Wushu Logo" class="logo">
                 <span class="site-title">UOWUSHU</span>
             </div>
         </a>
         <nav class="nav-links">
-            <a href="homepage.html" class="active" aria-current="page">Home</a>
+            <a href="index.html" class="active" aria-current="page">Home</a>
             <a href="https://www.givecampus.com/campaigns/67036/donations/new?designation_id=5797121&">Donate</a>
             <a href="contact.html">Contact Us</a>
         </nav>
@@ -56,10 +56,12 @@
         </div>
         <div class="info-right">
             <h2>Who We Are</h2>
-            <p>UO Wushu is a student organization at the University of Oregon dedicated to the practice and promotion of Wushu, a traditional Chinese martial art. 
-                We offer training sessions, workshops, and events for students of all skill levels. 
-                Whether you're a beginner or an experienced practitioner, we welcome you to join our community and explore the art of Wushu with us!
-            </p>
+            <p><strong>UO Wushu is a group of students who train and perform modern Chinese martial arts.</strong> Most people who join have never tried Wushu before, and that&rsquo;s totally normal. We teach everything from basic stances and kicks to full routines, and we help each other improve at our own pace.</p>
+            <details class="read-more">
+                <summary>Read more</summary>
+                <p>If you&rsquo;re curious about martial arts, want to get active, or just want to try something new with a friendly group of people, you&rsquo;re welcome here. We&rsquo;re a mix of beginners, athletes, performers, and people who just enjoy learning cool movement skills together.</p>
+            </details>
+        </div>
         </div>
     </section>
 
@@ -70,10 +72,12 @@
         </div>
         <div class="info-right-2">
             <h2>What We Do</h2>
-            <p>At UO Wushu, we provide a supportive and inclusive environment for students to learn and practice Wushu. 
-                Our activities include regular training sessions, workshops with guest instructors, and participation in local and national Wushu competitions. 
-                We also organize social events and community outreach programs to promote the art of Wushu and foster camaraderie among our members.
-            </p>
+            <p>We meet each week to practice Wushu forms, kicks, jumps, and performance skills. A typical session includes warm-ups, learning new techniques, and working on short routines. No experience is needed, we'll teach you everything step-by-step.</p>
+            <details class="read-more">
+                <summary>Read more</summary>
+                <p>Throughout the year, we also host beginner workshops, travel to compete, and put together performances for campus events. Some members choose to train for competitions, while others come simply for fun, fitness, and community. No matter your goal, you&rsquo;ll have people supporting you.</p>
+            </details>
+        </div>
         </div>
     </section>
 
@@ -82,7 +86,11 @@
         <div class="events-content">
             <p class="schedule-eyebrow">Train with us</p>
             <h2>Our Schedule</h2>
-            <p class="schedule-intro">Join us for practice three times a week. All experience levels are welcome.</p>
+            <p class="schedule-intro">We practice three times a week, and everyone is welcome to come try it out.</p>
+            <div class="join-callout">
+                <div class="join-callout-title">How do I join?</div>
+                <p>There's no sign-up or tryout &mdash; just show up to a practice below. Come a few times and you're a member.</p>
+            </div>
             <div class="events-list">
                 <div class="event-card">
                     <div class="event-day">Monday</div>
@@ -109,7 +117,7 @@
             <img src="Images/WushuDuck.png" alt="UO Wushu Logo" class="footer-logo">
             <div class="footer-title">UOWUSHU</div>
             <div class="footer-links">
-                <a href="homepage.html">Home</a>
+                <a href="index.html">Home</a>
                 <a href="contact.html">Contact</a>
                 <a href="https://www.givecampus.com/campaigns/67036/donations/new?designation_id=5797121&">Donate</a>
             </div>
@@ -135,8 +143,8 @@
             { src: 'Images/CollegiateOPicture.JPG', alt: 'UO Wushu group training moment' },
             { src: 'Images/FanPose.JPEG', alt: 'UO Wushu action placeholder image' },
             { src: 'Images/BACKFLIP.PNG', alt: 'UO Wushu member performing a backflip' },
-            { src: 'Images/CollegiateSelfie.JPG', alt: 'UO Wushu team selfie at a collegiate event' },
-            { src: 'Images/FunWushuGroupPic.jpg', alt: 'UO Wushu group having fun together' }
+            { src: 'Images/FunWushuGroupPic.jpg', alt: 'UO Wushu group having fun together' },
+            { src: 'Images/PracticePose.JPEG', alt: 'UO Wushu training' }
         ];
 
         const carouselTrack = document.querySelector('.hero-carousel-track');

@@ -371,6 +371,37 @@ img {
     opacity: 0.95;
 }
 
+.read-more {
+    margin-top: 6px;
+}
+.read-more p {
+    margin-top: 10px;
+}
+.read-more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #f0c040;
+    font-weight: 600;
+    font-size: 0.95rem;
+    list-style: none;
+    user-select: none;
+}
+.read-more summary::-webkit-details-marker {
+    display: none;
+}
+.read-more summary::after {
+    content: "\25BE";
+    transition: transform 0.2s ease;
+}
+.read-more[open] summary::after {
+    transform: rotate(180deg);
+}
+.read-more summary:hover {
+    color: #fff;
+}
+
     /* Styling for second information section */
     .info-slide-2 {
         display: flex;
@@ -454,6 +485,10 @@ img {
             padding: 0;
             margin-top: 12px;
         }
+
+        .read-more summary {
+            font-size: 0.9rem;
+        }
     }
 
     /* Events Section Styling */
@@ -510,6 +545,29 @@ img {
         line-height: 1.6;
         text-align: center;
     }
+    .join-callout {
+        width: 100%;
+        max-width: 640px;
+        margin: 0 0 24px;
+        padding: 18px 24px;
+        border: 2px solid #f0c040;
+        border-radius: 12px;
+        background: rgba(240, 192, 64, 0.08);
+        text-align: center;
+    }
+    .join-callout-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #f0c040;
+        margin-bottom: 6px;
+    }
+    .join-callout p {
+        margin: 0;
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
     .events-list {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -561,6 +619,10 @@ img {
 
         .events-content h2 {
             font-size: 1.7rem;
+        }
+
+        .join-callout {
+            padding: 14px 18px;
         }
 
         .events-list {
